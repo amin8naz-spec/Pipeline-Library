@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none; /* улучшение для мобильных тапов */
+}
+
+body {
+    background: #0a0c10;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #121212;
+}
+
+header {
+    background: #1e1e2f;
+    padding: 12px 20px;
+    border-bottom: 1px solid #2c2c3a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #FFD200, #ff8c00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.folders-panel {
+    width: 260px;
+    background: #1a1a24;
+    border-right: 1px solid #2c2c3a;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.folders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #2c2c3a;
+}
+
+.folders-header h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.icon-btn {
+    background: #2c2c3a;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.icon-btn:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+.folders-list {
+    list-style: none;
+    padding: 8px;
+}
+
+.folder-item {
+    padding: 12px 16px;
+    margin: 4px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #23232e;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.folder-item.active {
+    background: #ff9800;
+    color: #121212;
+}
+
+.files-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #121212;
+}
+
+.files-header {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e2a;
+    border-bottom: 1px solid #2c2c3a;
+}
+
+.upload-btn {
+    background: #2c2c3a;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+.upload-btn:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+#fileUpload {
+    display: none;
+}
+
+.files-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    align-content: start;
+}
+
+.file-card {
+    background: #1e1e2a;
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: 1px solid #2c2c3a;
+}
+
+.file-card:hover {
+    transform: translateY(-4px);
+    background: #2a2a36;
+}
+
+.file-icon {
+    font-size: 2.8rem;
+    margin-bottom: 8px;
+}
+
+.file-name {
+    font-weight: 500;
+    word-break: break-word;
+    margin: 8px 0;
+    font-size: 0.9rem;
+}
+
+.file-meta {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin: 4px 0;
+}
+
+.move-file-btn {
+    background: none;
+    border: none;
+    color: #ff9800;
+    font-size: 0.8rem;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.75rem;
+    border-top: 1px solid #2c2c3a;
+    background: #0a0c10;
+    color: #aaa;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #1e1e2a;
+    border-radius: 28px;
+    width: 90%;
+    max-width: 1200px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.fullscreen-viewer {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+}
+
+.small {
+    width: 320px;
+    height: auto;
+    padding: 20px;
+}
+
+.viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: #0f0f17;
+    border-bottom: 1px solid #2c2c3a;
+}
+
+.viewer-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ctrl-btn, .close-btn {
+    background: #2c2c3a;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.close-btn {
+    background: #ff3b30;
+}
+
+.viewer-body {
+    flex: 1;
+    overflow: auto;
+    background: #1a1a24;
+    padding: 16px;
+    position: relative;
+    touch-action: pan-x pan-y; /* для свайпов */
+}
+
+/* PDF canvas */
+.viewer-body canvas {
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    background: white;
+}
+
+/* Office контент */
+.doc-content, .excel-content {
+    background: #fefefe;
+    color: #000;
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.excel-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.excel-content td, .excel-content th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 700px) {
+    .folders-panel {
+        width: 200px;
+    }
+    .files-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .logo h1 {
+        font-size: 1.1rem;
+    }
+}
+
+.viewer-body {
+    touch-action: pan-y pinch-zoom;
+}

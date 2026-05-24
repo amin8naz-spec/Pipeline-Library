@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Amin Pipeline Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2300A3E0'/%3E%3Ccircle cx='50' cy='40' r='18' fill='%23FFD200'/%3E%3Cpath d='M50 20 L55 35 L70 35 L58 45 L63 60 L50 50 L37 60 L42 45 L30 35 L45 35 Z' fill='%23FFD200'/%3E%3Cpath d='M25 70 L75 70 L68 85 L32 85 Z' fill='%23444'/%3E%3Crect x='45' y='85' width='10' height='15' fill='%23444'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#00A3E0"/>
+                    <circle cx="50" cy="40" r="18" fill="#FFD200"/>
+                    <path d="M50 20 L55 35 L70 35 L58 45 L63 60 L50 50 L37 60 L42 45 L30 35 L45 35 Z" fill="#FFD200"/>
+                    <path d="M25 70 L75 70 L68 85 L32 85 Z" fill="#2C2C2C"/>
+                    <rect x="45" y="85" width="10" height="15" fill="#2C2C2C"/>
+                    <path d="M35 55 L40 50 L55 50 L60 55" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="48" cy="57" r="2" fill="#2C2C2C"/>
+                    <circle cx="52" cy="57" r="2" fill="#2C2C2C"/>
+                </svg>
+                <h1>Amin Pipeline Library</h1>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <aside class="folders-panel">
+                <div class="folders-header">
+                    <h3>Папки</h3>
+                    <button id="createFolderBtn" class="icon-btn">+</button>
+                </div>
+                <ul id="foldersList" class="folders-list">
+                    <li data-folder-id="root" class="folder-item active">📁 Все файлы</li>
+                </ul>
+            </aside>
+
+            <main class="files-area">
+                <div class="files-header">
+                    <h2 id="currentFolderName">Все файлы</h2>
+                    <div class="actions">
+                        <label for="fileUpload" class="upload-btn">📄 Загрузить файл</label>
+                        <input type="file" id="fileUpload" multiple accept=".pdf,.docx,.xlsx">
+                    </div>
+                </div>
+                <div id="filesList" class="files-grid">
+                    <!-- список файлов -->
+                </div>
+            </main>
+        </div>
+
+        <footer>
+            <p>Pipeline, Karabatan 2026</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно просмотра файла -->
+    <div id="viewerModal" class="modal">
+        <div class="modal-content fullscreen-viewer">
+            <div class="viewer-header">
+                <button id="closeViewer" class="close-btn">✖</button>
+                <div class="viewer-controls">
+                    <button id="zoomOutBtn" class="ctrl-btn">−</button>
+                    <span id="zoomLevel">100%</span>
+                    <button id="zoomInBtn" class="ctrl-btn">+</button>
+                    <button id="prevPageBtn" class="ctrl-btn" style="display:none">◀</button>
+                    <span id="pageInfo" style="display:none"></span>
+                    <button id="nextPageBtn" class="ctrl-btn" style="display:none">▶</button>
+                </div>
+            </div>
+            <div id="viewerBody" class="viewer-body">
+                <!-- динамический контент: canvas для PDF или html для office -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно перемещения файла -->
+    <div id="moveModal" class="modal">
+        <div class="modal-content small">
+            <h3>Переместить файл</h3>
+            <select id="folderSelect"></select>
+            <div class="modal-buttons">
+                <button id="confirmMoveBtn">Переместить</button>
+                <button id="cancelMoveBtn">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.5/dist/dexie.js"></script>
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(reg => console.log('SW registered', reg)).catch(err => console.log('SW failed', err));
+        }
+    </script>
+</body>
+</html>
