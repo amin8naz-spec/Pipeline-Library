@@ -2,62 +2,76 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    user-select: none; /* улучшение для мобильных тапов */
+    user-select: none; /* для мобильных тапов */
 }
 
 body {
-    background: #0a0c10;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000000; /* абсолютно чёрный фон */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: #ffffff;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
 }
 
+/* подключение современного шрифта Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
 .app {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: #121212;
+    background: radial-gradient(circle at 20% 30%, #0a0a0a, #000000);
 }
 
+/* хедер с логотипом */
 header {
-    background: #1e1e2f;
-    padding: 12px 20px;
-    border-bottom: 1px solid #2c2c3a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .logo svg {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+    transition: transform 0.2s ease;
+}
+
+.logo svg:hover {
+    transform: scale(1.02);
 }
 
 .logo h1 {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    font-weight: 500;
-    background: linear-gradient(135deg, #FFD200, #ff8c00);
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FFD200 0%, #FF8C00 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    letter-spacing: -0.3px;
 }
 
+/* основная сетка */
 .main-container {
     display: flex;
     flex: 1;
     overflow: hidden;
+    gap: 0;
 }
 
+/* панель папок — тёмная с блюром */
 .folders-panel {
-    width: 260px;
-    background: #1a1a24;
-    border-right: 1px solid #2c2c3a;
+    width: 280px;
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 210, 0, 0.2);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -67,153 +81,197 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #2c2c3a;
+    padding: 20px 16px;
+    border-bottom: 1px solid rgba(255, 210, 0, 0.2);
 }
 
 .folders-header h3 {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #FFD200, #FF8C00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .icon-btn {
-    background: #2c2c3a;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
+    background: rgba(255, 210, 0, 0.2);
+    border: 1px solid rgba(255, 210, 0, 0.5);
+    color: #FFD200;
+    font-size: 1.4rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon-btn:hover {
-    background: #ff9800;
-    color: #121212;
+    background: #FFD200;
+    color: #000;
+    border-color: #FFD200;
+    transform: scale(1.02);
 }
 
 .folders-list {
     list-style: none;
-    padding: 8px;
+    padding: 12px;
 }
 
 .folder-item {
-    padding: 12px 16px;
-    margin: 4px 0;
-    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 6px 0;
+    border-radius: 20px;
     cursor: pointer;
-    transition: 0.2s;
-    background: #23232e;
+    transition: all 0.25s;
+    background: rgba(25, 25, 32, 0.6);
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    border: 1px solid transparent;
 }
 
 .folder-item.active {
-    background: #ff9800;
-    color: #121212;
+    background: linear-gradient(95deg, #FFD20020, #FF8C0020);
+    border-left: 3px solid #FFD200;
+    color: #FFD200;
+    font-weight: 600;
 }
 
+.folder-item:hover {
+    background: rgba(255, 210, 0, 0.15);
+    transform: translateX(4px);
+}
+
+/* область с файлами */
 .files-area {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: #121212;
+    background: transparent;
 }
 
 .files-header {
-    padding: 16px 24px;
+    padding: 16px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1e1e2a;
-    border-bottom: 1px solid #2c2c3a;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 210, 0, 0.2);
+}
+
+.files-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #FFD200;
 }
 
 .upload-btn {
-    background: #2c2c3a;
-    padding: 8px 16px;
-    border-radius: 30px;
+    background: rgba(255, 210, 0, 0.15);
+    padding: 10px 20px;
+    border-radius: 40px;
     cursor: pointer;
     transition: 0.2s;
-    font-weight: 500;
+    font-weight: 600;
+    border: 1px solid rgba(255, 210, 0, 0.4);
+    color: #FFD200;
 }
 
 .upload-btn:hover {
-    background: #ff9800;
-    color: #121212;
+    background: #FFD200;
+    color: #000;
+    border-color: #FFD200;
 }
 
 #fileUpload {
     display: none;
 }
 
+/* сетка файлов */
 .files-grid {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
     align-content: start;
 }
 
 .file-card {
-    background: #1e1e2a;
-    border-radius: 20px;
-    padding: 16px;
+    background: rgba(20, 20, 28, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    padding: 20px 12px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    border: 1px solid #2c2c3a;
+    transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: 1px solid rgba(255, 210, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .file-card:hover {
-    transform: translateY(-4px);
-    background: #2a2a36;
+    transform: translateY(-8px);
+    background: rgba(40, 40, 50, 0.9);
+    border-color: rgba(255, 210, 0, 0.6);
+    box-shadow: 0 16px 28px rgba(0,0,0,0.5);
 }
 
 .file-icon {
-    font-size: 2.8rem;
-    margin-bottom: 8px;
+    font-size: 3rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
 }
 
 .file-name {
-    font-weight: 500;
+    font-weight: 600;
     word-break: break-word;
-    margin: 8px 0;
+    margin: 10px 0;
     font-size: 0.9rem;
+    color: #ffffff;
 }
 
 .file-meta {
     font-size: 0.7rem;
-    color: #aaa;
-    margin: 4px 0;
+    color: #aaaaaa;
+    margin: 6px 0;
 }
 
 .move-file-btn {
-    background: none;
+    background: rgba(255, 210, 0, 0.2);
     border: none;
-    color: #ff9800;
-    font-size: 0.8rem;
+    color: #FFD200;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 40px;
     margin-top: 8px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
+.move-file-btn:hover {
+    background: #FFD200;
+    color: #000;
+}
+
+/* футер */
 footer {
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     font-size: 0.75rem;
-    border-top: 1px solid #2c2c3a;
-    background: #0a0c10;
-    color: #aaa;
+    border-top: 1px solid rgba(255, 210, 0, 0.2);
+    background: rgba(0,0,0,0.5);
+    color: #cccccc;
+    backdrop-filter: blur(4px);
 }
 
-/* Modal */
+/* модальные окна */
 .modal {
     display: none;
     position: fixed;
@@ -221,22 +279,24 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(12px);
     z-index: 1000;
     align-items: center;
     justify-content: center;
 }
 
 .modal-content {
-    background: #1e1e2a;
-    border-radius: 28px;
+    background: #0f0f15;
+    border-radius: 32px;
     width: 90%;
     max-width: 1200px;
     height: 90%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 210, 0, 0.3);
 }
 
 .fullscreen-viewer {
@@ -249,62 +309,68 @@ footer {
 .small {
     width: 320px;
     height: auto;
-    padding: 20px;
+    padding: 24px;
 }
 
 .viewer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
-    background: #0f0f17;
-    border-bottom: 1px solid #2c2c3a;
+    padding: 12px 24px;
+    background: rgba(0,0,0,0.8);
+    border-bottom: 1px solid #FFD20030;
 }
 
 .viewer-controls {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
 }
 
 .ctrl-btn, .close-btn {
-    background: #2c2c3a;
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 30px;
+    background: rgba(255, 210, 0, 0.2);
+    border: 1px solid #FFD20060;
+    color: #FFD200;
+    padding: 6px 16px;
+    border-radius: 40px;
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
+    transition: 0.2s;
+}
+
+.ctrl-btn:hover, .close-btn:hover {
+    background: #FFD200;
+    color: #000;
 }
 
 .close-btn {
-    background: #ff3b30;
+    background: #ff3b3060;
+    border-color: #ff3b30;
+    color: #fff;
 }
 
 .viewer-body {
     flex: 1;
     overflow: auto;
-    background: #1a1a24;
-    padding: 16px;
-    position: relative;
-    touch-action: pan-x pan-y; /* для свайпов */
+    background: #0a0a0a;
+    padding: 20px;
+    touch-action: pan-x pan-y;
 }
 
-/* PDF canvas */
 .viewer-body canvas {
     display: block;
     margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    background: white;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    border-radius: 12px;
 }
 
-/* Office контент */
+/* содержимое office документов */
 .doc-content, .excel-content {
-    background: #fefefe;
-    color: #000;
+    background: #1a1a24;
+    color: #eee;
     padding: 20px;
-    border-radius: 16px;
+    border-radius: 20px;
     max-width: 100%;
     overflow-x: auto;
 }
@@ -312,26 +378,37 @@ footer {
 .excel-content table {
     border-collapse: collapse;
     width: 100%;
+    background: #ffffff10;
+    color: #ddd;
 }
 
 .excel-content td, .excel-content th {
-    border: 1px solid #ccc;
+    border: 1px solid #FFD20040;
     padding: 8px;
 }
 
-/* Мобильная адаптация */
+/* адаптив */
 @media (max-width: 700px) {
     .folders-panel {
-        width: 200px;
+        width: 220px;
     }
     .files-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
     }
     .logo h1 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 }
 
-.viewer-body {
-    touch-action: pan-y pinch-zoom;
+/* скроллбар */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD200;
+    border-radius: 10px;
 }
